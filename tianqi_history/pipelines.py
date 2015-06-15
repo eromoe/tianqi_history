@@ -172,6 +172,7 @@ class SQLitePipline(object):
                 log_date_error(item.get('purl'))
 
             w = Weather(
+                name=item.get('name'),
                 zone_id=item.get('zone_id'),
                 weather=item.get('weather'),
                 wind_direction=item.get('wind_direction'),

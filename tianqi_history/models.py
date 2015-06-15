@@ -4,6 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, TEXT, Date, DateTime, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy import create_engine
+import settings
 
 Base = declarative_base()
 
@@ -43,6 +44,7 @@ class Location(Base):
 class Weather(Base):
     __tablename__ = 'weather'
     id = Column(Integer, primary_key=True)
+    name = Column(String)                      # 地区名称
     zone_id = Column(Integer)                  # Location oid
     weather = Column(String)                   # 天气
     wind_direction = Column(String)            # 风向
@@ -53,5 +55,23 @@ class Weather(Base):
 
 
 
+class SQLite(object):
+    DBNAME = getattr(settings, 'DBNAME', 'weather')
+
+    def __init__(self):
+        try:
+            engine = getattr(self, 'engine', None)
+            if engine is None:
+                self.engine = create_engine('sqlite:///%s.db' % self.DBNAME)
+                self.Session = sessionmaker(bind=self.engine)
+        except Exception as e:
+            print "ERROR(SQLite): %s"%(str(e),)
 
 
+
+if __name__ == "__main__":
+    # 创建 之前所有 定义的 类 对应的 table
+    # db = MysqlPipeline()
+    # Base.metadata.create_all(bind=db.engine)
+    sqlite = SQLite()
+    Base.metadata.create_all(bind=sqlite.engine)

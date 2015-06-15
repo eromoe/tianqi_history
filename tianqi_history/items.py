@@ -20,6 +20,7 @@ def extract_int(s):
 class WeatherItem(Item):
     # url = Field()
     purl = Field()
+    name = Field()
     zone_id = Field()
     weather = Field()
     wind_direction = Field()

@@ -98,17 +98,26 @@ class WeatherSpider(Spider):
 	name = "weather"
 	start_urls = get_urls()
 
+
 	def get_zone_id(self, response):
+		zone_id, name = self.get_zone_id_and_name(response)
+
+		return zone_id
+
+	def get_zone_id_and_name(self, response):
 		sel = Selector(response)
 
 		l_selected = take_first(sel.xpath('//select[@id="zone"]/option[@selected]'))
 
 		zone_id = take_first_strip(l_selected.xpath('@value').extract())
 
+
+		name = l_selected[0].text[2:]
+
 		if not zone_id:
 			raise Exception('url: %s do not have zone_id' % response.url)
 
-		return zone_id
+		return zone_id, name
 
 
 	def check_target_response(self, response):
@@ -156,7 +165,7 @@ class WeatherSpider(Spider):
 	def parse_detail(self, response):
 		sel = Selector(response)
 
-		zone_id = self.get_zone_id(response)
+		zone_id, name = self.get_zone_id_and_name(response)
 
 		w_list = sel.xpath(u'//div[@class="tqtongji2"]/ul')[1:]
 		items = []
@@ -177,6 +186,8 @@ class WeatherSpider(Spider):
 						date = datetime.strptime(url_date_text,'%Y%m%d')
 			except Exception as e:
 				self.log("url:%s error" % e, level=log.ERROR)
+
+
 
 			item['purl'] = response.url
 			# item['url'] = url
