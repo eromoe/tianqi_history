@@ -44,8 +44,8 @@ class Location(Base):
 class Weather(Base):
     __tablename__ = 'weather'
     id = Column(Integer, primary_key=True)
-    name = Column(String)                      # 地区名称
     zone_id = Column(Integer)                  # Location oid
+    name = Column(String)                      # 地区名称
     weather = Column(String)                   # 天气
     wind_direction = Column(String)            # 风向
     wind_power = Column(String)                # 风强

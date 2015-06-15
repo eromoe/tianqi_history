@@ -189,6 +189,7 @@ class WeatherSpider(Spider):
 
 
 			item['purl'] = response.url
+			item['name'] = name
 			# item['url'] = url
 			item['date'] = date
 			item['max_t'] = take_first_strip(w.xpath('li[2]/text()').extract())
@@ -200,7 +201,7 @@ class WeatherSpider(Spider):
 				
 			items.append(item)
 
-		self.log("parse zone_id: %s , w_list_count:%s ,items_count:%s, purl:%s" % (zone_id, len(w_list), len(items), response.url), level=log.INFO)
+		self.log("parse zone_id: %s , w_list_count:%s ,items_count:%s, purl:%s" % (zone_id, len(w_list), len(items), response.url), level=log.DEBUG)
 		if len(w_list) != len(items):
 			self.log("w_list_count:%s  not equel to items_count:%s" % (len(w_list), len(items)), level=log.ERROR)
 
