@@ -111,8 +111,7 @@ class WeatherSpider(Spider):
 
 		zone_id = take_first_strip(l_selected.xpath('@value').extract())
 
-
-		name = l_selected[0].text[2:]
+		name = take_first_strip(l_selected.xpath('text()').extract())[2:]
 
 		if not zone_id:
 			raise Exception('url: %s do not have zone_id' % response.url)
