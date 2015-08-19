@@ -1,12 +1,10 @@
-tianqi_history - a crawler for lishi.tianqi.com using scrapy
+# tianqi_history - a crawler for lishi.tianqi.com using scrapy
 
 注册这么久一直都没有贡献什么代码。。。个人站点代码肯定是不想公开。。。
 所以只能开这种东西了，希望能帮到人 ~ ^_^ ~
 
 
-爬取lishi.tianqi.com的数据
-
-#基本用法
+# 基本用法
 
 基于python scrapy
 
