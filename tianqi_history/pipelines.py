@@ -57,63 +57,6 @@ class JsonWriterPipeline(object):
 
 
 
-# class SQLitePipline(object):
-#     DBPATH = 'weather.db'
-
-#     def __init__(self):
-#         import sqlite3
-#         try:
-#             conn = sqlite3.connect(self.DBPATH)
-#             return conn
-#         except Exception as e:
-#             print "ERROR(SQLite): %s"%(str(e),)
-
-
-#     @classmethod
-#     def from_crawler(cls, crawler):
-#         cls.DBPATH = crawler.settings.get('SQLite_DBPATH', SQLitePipline.DBPATH)
-#         pipe = cls()
-#         pipe.crawler = crawler
-#         return pipe
-
-
-#     def process_item(self, item, spider):
-#         try:
-#             w = self.session.query(Weather).filter(Weather.zone_id == item.get('zone_id'), Weather.date==item.get('date')).first()
-
-#             if w:
-#                 pass
-#             else:
-
-#                 w = Weather(
-#                     #手动设置 Id更好
-#                     zone_id=item.get('zone_id'),
-#                     weather=item.get('weather'),
-#                     wind_direction=item.get('wind_direction'),
-#                     wind_power=item.get('wind_power'),
-#                     max_t=item.get('max_t'),
-#                     min_t=item.get('min_t'),
-#                     date=item.get('date'),
-
-#                 )
-
-#                 self.session.add(w)
-#                 self.session.commit()
-
-#         except Exception as e:
-#             print 'error in SQLitePipline: {0!r}'.format(e)
-
-#             log.msg("zone:%s - %s have been wrote to database, detail:%s" %
-#                         (item['zone_id'], item['date'], e),
-#                         level=log.ERROR, spider=spider)
-
-#             self.session.rollback()
-
-#             raise Exception(e)
-
-#         return item
-
-
 
 DATE_ERROR_FILE_PATH = 'date_error.txt'
 
